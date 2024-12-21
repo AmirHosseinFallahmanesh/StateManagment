@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "GetSessionCart";
+}
+
+@model Cart
+
+
+<div class="container mt-5">
+    <h2>@Model.Name</h2>
+
+    @if (Model.Lines != null && Model.Lines.Count > 0)
+    {
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model.Lines)
+                {
+                    <tr>
+                        <td>@line.ProductName</td>
+                        <td>@line.Price.ToString("C")</td>
+                        <td>@line.Quantity</td>
+                        <td>@(line.Price * line.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end">
+            <h4>Total: @Model.Lines.Sum(l => l.Price * l.Quantity)</h4>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Your cart is empty.
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continue Shopping</a>
+        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">Checkout</a>
+    </div>
+</div>

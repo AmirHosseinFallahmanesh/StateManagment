@@ -1,4 +1,5 @@
-﻿using Demo1.Models;
+﻿using Demo1.Extensoins;
+using Demo1.Models;
 using Demo1.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,11 @@ namespace Demo1.Controllers
             return View();
         }
 
+        public IActionResult GetSessionCart()
+        {
+            Cart cart = HttpContext.Session.GetJson<Cart>("cart")??new Cart();
+            return View(cart);
+        }
         public IActionResult CkService()
         {
             cookieService.Set<string>("fromservice", "test", 1);

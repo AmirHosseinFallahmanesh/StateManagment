@@ -26,7 +26,11 @@ namespace Demo1
         {
             services.AddHttpContextAccessor();
             services.AddScoped<ICookieService, CookieService>();
-            services.AddSession();
+            services.AddSession(opt=>
+            {
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.Name = "cart";
+            });
             services.AddControllersWithViews();
         }
 

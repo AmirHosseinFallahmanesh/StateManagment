@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Demo1.Extensoins;
+using Demo1.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,48 @@ namespace Demo1.Controllers
             }
             return View(model);
         }
+
+        public IActionResult AddCart()
+        {
+
+            Cart cart = new Cart
+            {
+                Name = "My Shopping Cart",
+                Lines = new List<CartLine>
+                {
+                    new CartLine
+                    {
+                        ProductName = "Apple",
+                        Price = 1,
+                        Quantity = 3
+                    },
+                    new CartLine
+                    {
+                        ProductName = "Banana",
+                        Price = 2,
+                        Quantity = 5
+                    },
+                    new CartLine
+                    {
+                        ProductName = "Orange",
+                        Price = 3,
+                        Quantity = 2
+                    },
+                    new CartLine
+                    {
+                        ProductName = "Grapes",
+                        Price = 4,
+                        Quantity = 1
+                    }
+                }
+            };
+
+            HttpContext.Session.SetJson("cart", cart);
+
+            return RedirectToAction("Index");
+        }
+
+
 
         // POST: /Session/Add
         [HttpPost]
