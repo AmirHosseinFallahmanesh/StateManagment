@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label >Key</label>
+        <input type="text" name="key" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label >Value</label>
+        <input type="text" name="value" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Cookie</button>
+</form>
+
+<a asp-action="Index ">Back to Cookies</a>

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model List<KeyValuePair<string,string>>
+<h2>Cookies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cookie in Model)
+        {
+            <tr>
+                <td>@cookie.Key</td>
+                <td>@cookie.Value</td>
+                <td>
+                    <a asp-action="Edit" asp-route-key="@cookie.Key">Edit</a> |
+                    <a asp-action="Delete" asp-route-key="@cookie.Key" onclick="return confirm('Are you sure you want to delete this cookie?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Add">Add Cookie</a>
