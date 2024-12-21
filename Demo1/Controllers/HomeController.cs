@@ -2,6 +2,7 @@
 using Demo1.Models;
 using Demo1.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,20 +16,31 @@ namespace Demo1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICookieService cookieService;
+        private readonly IMemoryCache memoryCache;
 
-        public HomeController(ILogger<HomeController> logger, ICookieService cookieService)
+        public HomeController(ILogger<HomeController> logger, ICookieService cookieService,IMemoryCache memoryCache)
         {
             _logger = logger;
             this.cookieService = cookieService;
+            this.memoryCache = memoryCache;
         }
 
         public IActionResult Index()
         {
+            memoryCache.Set("cart", new Cart());
+            memoryCache.Get<Cart>("cart");
+            return View();
+        }
+
+        public IActionResult CacheDemo()
+        {
+            
             return View();
         }
 
         public IActionResult GetSessionCart()
         {
+
             Cart cart = HttpContext.Session.GetJson<Cart>("cart")??new Cart();
             return View(cart);
         }

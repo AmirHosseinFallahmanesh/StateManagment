@@ -31,6 +31,7 @@ namespace Demo1
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.Name = "cart";
             });
+            services.AddMemoryCache();
             services.AddControllersWithViews();
         }
 
