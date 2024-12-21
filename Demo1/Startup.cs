@@ -26,6 +26,7 @@ namespace Demo1
         {
             services.AddHttpContextAccessor();
             services.AddScoped<ICookieService, CookieService>();
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -44,7 +45,7 @@ namespace Demo1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

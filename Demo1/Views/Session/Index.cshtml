@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model Dictionary<string,string>
+<h2>Session Management</h2>
+
+<h3>Add Session</h3>
+<form asp-action="Add" method="post">
+    <label>Key:</label>
+    <input type="text" name="key" required />
+    <label>Value:</label>
+    <input type="text" name="value" required />
+    <button type="submit">Add</button>
+</form>
+
+<h3>Current Sessions</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Key </td>
+                <td>@item.Value</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="key" value="@item.Key" />
+                        <button type="submit">Delete</button>
+                    </form>
+                  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
