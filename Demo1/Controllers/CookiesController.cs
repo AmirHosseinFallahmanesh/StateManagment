@@ -69,6 +69,18 @@ namespace Demo1.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Delete(string key)
+        {
+            if (Request.Cookies.ContainsKey(key))
+            {
+                Response.Cookies.Delete(key);
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

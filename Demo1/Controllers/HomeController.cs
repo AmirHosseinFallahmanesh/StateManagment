@@ -1,4 +1,5 @@
 ﻿using Demo1.Models;
+using Demo1.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,10 +13,12 @@ namespace Demo1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICookieService cookieService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICookieService cookieService)
         {
             _logger = logger;
+            this.cookieService = cookieService;
         }
 
         public IActionResult Index()
@@ -23,6 +26,11 @@ namespace Demo1.Controllers
             return View();
         }
 
+        public IActionResult CkService()
+        {
+            cookieService.Set<string>("fromservice", "test", 1);
+            return RedirectToAction("index");
+        }
         public IActionResult Privacy()
         {
             return View();
